@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackMyMoney - Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Custom Navbar Styles */
+        .navbar {
+            background-color: #87CEEB; /* Sky Blue background */
+            border-bottom: 2px solid #4682B4; /* Darker blue for the border */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-toggler {
+            background-color: #9bafc2;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #4682B4; /* Darker blue for toggler icon */
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important; /* White color for nav links */
+            font-weight: 500;
+            font-size: 1.2rem; /* Increased font size for navbar links */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #4682B4 !important; /* Dark blue hover effect */
+        }
+
+        .navbar-nav .nav-item.active .nav-link {
+            color: #4682B4 !important; /* Active link color */
+            font-weight: bold;
+        }
+
+        /* Hover effect for toggler button */
+        .navbar-toggler:hover {
+            background-color: #4682B4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">
+                <img src="https://expensetrackerdemo.netlify.app/img/logo.png" 
+                     alt="TrackMyMoney Logo" style="height: 100px;">
+                TrackMyMoney
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/expensesummary/">Expense Summary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/profile/">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/add_expense"> Daily Expense</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/recurringexpense/">Recurring Expenses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'spendingalert' %}">Spending Alerts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/auth/login/">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/auth/signup">Signup</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero text-center bg-light py-5">
+        <div class="container">
+            <h1 class="display-4 text-primary font-weight-bold">Welcome to TrackMyMoney</h1>
+            <p class="lead text-secondary" style="font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(23, 0, 65, 0.2);">
+                Your one-stop solution to manage your finances effectively.
+            <img src="https://i.etsystatic.com/9452274/r/il/be37f4/1492079595/il_794xN.1492079595_r9gp.jpg" 
+                 alt="Hero Image" class="img-fluid my-4" style="max-height: 1000px; width: 200%;">
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us bg-light py-5">
+        <div class="container">
+            <h2 class="text-center">About Us</h2>
+            <p class="text-center">TrackMyMoney is a comprehensive financial management tool designed to help you track your expenses, set budgets, and achieve your financial goals. We are committed to making personal finance easy and accessible for everyone.</p>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer bg-dark text-white py-3">
+        <div class="container text-center">
+            <p>&copy; 2025 TrackMyMoney. All Rights Reserved.</p>
+            <p><a href="#about-us" class="text-white">About Us</a> | <a href="#contact" class="text-white">Contact</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

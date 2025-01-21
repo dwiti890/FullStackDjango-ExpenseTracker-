@@ -1,0 +1,5 @@
+venv
+
+expensetracker/media/
+
+expensetracker/db.sqlite3
