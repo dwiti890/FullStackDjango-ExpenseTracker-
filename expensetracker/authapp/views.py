@@ -1,45 +1,47 @@
 from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from django.contrib.auth import authenticate, login as auth_login  # Renamed to avoid conflict
-# from .models import CustomUser
-# from django.utils import timezone  # Add this import at the top
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import Profile
 
-
+# Signup View
 def signup(request):
     if request.method == 'POST':
-        register_number= request.POST['user_id']
-        name= request.POST['username']
-        email= request.POST['email']
-        phone= request.POST['contact_number']
-        password= request.POST['password']
+        register_number = request.POST['user_id']
+        name = request.POST['username']
+        email = request.POST['email']
+        phone = request.POST['contact_number']
+        password = request.POST['password']
+
+        # Create a new user
         user = User.objects.create(username=email, email=email, first_name=name, last_name=register_number)
         user.set_password(password)
         user.save()
 
-        userProfile = UserProfile.objects.create(user=user, contact_number=phone)
-        userProfile.save()
-            # Create a UserProfile instance for the registered user
-            # UserProfile.objects.create(user=user)
-        return redirect('login')  # Replace 'home' with your actual homepage URL name
+        # Create a Profile instance for the new user
+        profile = Profile.objects.create(user=user, contact_number=phone)
+        profile.save()
+
+        # Redirect to login page after successful signup
+        return redirect('login')
     else:
         return render(request, 'authenticate/signup.html')
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.contrib.auth import login  # Correct import
 
+
+# Login View
 def user_login(request):
     if request.method == 'POST':
-        # Get the email and password from the login form
-        email = request.POST.get('user_id')  # Here 'user_id' corresponds to email in the signup view
+        # Get email and password from the login form
+        email = request.POST.get('user_id')  # 'user_id' is used as email
         password = request.POST.get('password')
 
-        # Authenticate the user using email as the username
+        # Authenticate the user
         user = authenticate(username=email, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('home')  # Replace 'dashboard' with your post-login redirect view
+                return redirect('home')  # Redirect to home/dashboard after login
             else:
                 messages.error(request, 'Your account is inactive. Please contact support.')
         else:
@@ -51,8 +53,25 @@ def user_login(request):
     return render(request, 'authenticate/login.html')
 
 
-
-# @login_required(login_url='login')from django.shortcuts import render
-
+# Home View
+@login_required(login_url='login')  # Ensure only logged-in users can access this view
 def home(request):
-    return render(request, 'users/home.html')  # Replace 'home.html' with the correct template
+    return render(request, 'users/home.html')  # Replace 'home.html' with your actual template
+
+
+# User Profile View
+@login_required
+@login_required
+def user_profile(request):
+    try:
+        # Fetch the Profile for the logged-in user
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        profile = None  # Handle case where the profile doesn't exist
+
+    # Pass user and profile details to the template
+    context = {
+        'user': request.user,  # User object (contains username, email, etc.)
+        'profile': profile,    # Profile object (contains contact_number)
+    }
+    return render(request, 'users/profile.html', context)
